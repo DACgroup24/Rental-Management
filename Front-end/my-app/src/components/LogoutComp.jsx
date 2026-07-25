@@ -14,5 +14,7 @@ export default function LogoutComp(){
 
 },[]);
 
+  return <div> Logging out </div>
+
 
 }

@@ -21,7 +21,7 @@ export default function MyProperties({ landlordId }) {
     const handleDelete = async (pid) => {
         if (!window.confirm('Are you sure you want to delete this listing?')) return;
         
-        const response = await fetch(`http://localhost:9000/api/properties/${pid}`, { method: 'DELETE' });
+        const response = await fetch(`http://localhost:5000/api/properties/${pid}`, { method: 'DELETE' });
         
         if (response.ok) {
             alert('Property deleted.');

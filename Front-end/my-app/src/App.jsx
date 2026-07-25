@@ -3,21 +3,22 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import LoginComp from './components/LoginComp'
+import LoginComp from './components/HomePage/LoginComp'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import HomeComp from './components/HomeComp'
+import HomeComp from './components/HomePage/HomeComp'
 import ProtectedRoute from './components/ProtectedRoutes'
 import TenantDashboard from './components/Tenant/TenantDashboard'
-import AdminDashboard from './components/AdminDashboard'
+import AdminDashboard from './components/Admin/AdminDashboard'
 import LogoutComp from './components/LogoutComp'
-// import LandlordDashboard from './components/Landlord/LandlordDashboard'
+
 import BrowseProperties from './components/Tenant/BrowseProperties'
 import ManageProfile from './components/Tenant/ManageProfile'
 import BookProperty from './components/Tenant/BookProperty'
 import ViewTokenPayments from './components/Tenant/ViewTokenPayment'
 import LandlordDashboard from './components/Landlord/LandlordDashboard'
-import FirstPage from './components/FirstPage'
-import Register from './components/Register'
+import FirstPage from './components/Tenant/FirstPage'
+import Register from './components/HomePage/Register'
+import Homepage from './components/HomePage/Homepage'
 
 function App() {
 
@@ -27,10 +28,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeComp />}/>
-            <Route path="/login" element={<LoginComp />} />
-            <Route path="/register" element={<Register/>} />
+          {/* <Route path="/homepage" element={<Homepage />} /> */}
+            <Route path="login" element={<LoginComp />} />
+            <Route path="register" element={<Register/>} />
+            
           {/* </Route> */}
           {/* role id of user is 1 */}
+
           {/* Admin dashboard */}
           <Route path="/admin" element={<ProtectedRoute role={1}><AdminDashboard /></ProtectedRoute>}>
 
@@ -79,6 +83,7 @@ function App() {
             <Route path="logout" element={<LogoutComp />} />
           </Route>
         </Routes>
+         
       </BrowserRouter>
 
     </>

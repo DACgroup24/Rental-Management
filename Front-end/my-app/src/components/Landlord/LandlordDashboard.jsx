@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 export default function LandlordDashboard() {
     const loginstate = useSelector(state => state.auth);
-    const landlordId = loginstate.userid || loginstate.uid || 1;
+    const landlordId = loginstate.userid || loginstate.uid || 1; // Fallback for testing
     const [tab, setTab] = useState('my-properties');
 
     return (
