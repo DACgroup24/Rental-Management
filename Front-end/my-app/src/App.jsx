@@ -17,8 +17,9 @@ import BookProperty from './components/Tenant/BookProperty'
 import ViewTokenPayments from './components/Tenant/ViewTokenPayment'
 import LandlordDashboard from './components/Landlord/LandlordDashboard'
 import FirstPage from './components/Tenant/FirstPage'
-import Register from './components/HomePage/Register'
+
 import Homepage from './components/HomePage/Homepage'
+import RegisterComp from './components/HomePage/RegisterComp'
 
 function App() {
 
@@ -30,10 +31,11 @@ function App() {
           <Route path="/" element={<HomeComp />}/>
           {/* <Route path="/homepage" element={<Homepage />} /> */}
             <Route path="login" element={<LoginComp />} />
-            <Route path="register" element={<Register/>} />
+            <Route path="register" element={<RegisterComp/>} />
             
           {/* </Route> */}
           {/* role id of user is 1 */}
+
 
           {/* Admin dashboard */}
           <Route path="/admin" element={<ProtectedRoute role={1}><AdminDashboard /></ProtectedRoute>}>
