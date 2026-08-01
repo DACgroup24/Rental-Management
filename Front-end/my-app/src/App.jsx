@@ -20,6 +20,8 @@ import FirstPage from './components/Tenant/FirstPage'
 
 import Homepage from './components/HomePage/Homepage'
 import RegisterComp from './components/HomePage/RegisterComp'
+import LandlordRequests from './components/Admin/LandlordRequest'
+
 
 function App() {
 
@@ -28,11 +30,11 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomeComp />}/>
+          <Route path="/" element={<HomeComp />} />
           {/* <Route path="/homepage" element={<Homepage />} /> */}
-            <Route path="login" element={<LoginComp />} />
-            <Route path="register" element={<RegisterComp/>} />
-            
+          <Route path="login" element={<LoginComp />} />
+          <Route path="register" element={<RegisterComp />} />
+          
           {/* </Route> */}
           {/* role id of user is 1 */}
 
@@ -42,36 +44,39 @@ function App() {
 
             <Route path="users" element={<h1> Users</h1>} />
             <Route path="reports" element={<h1> Reports</h1>} />
+            <Route path="landlords" element={<LandlordRequests />}
+            />
             <Route path="logout" element={<LogoutComp />} />
+
           </Route>
 
           {/* Tenant Dashboard NOTE: MANAGE EXPRESS.JS, ADD TABLES */}
           <Route path="/user" element={<ProtectedRoute role={2}><TenantDashboard /></ProtectedRoute>}>
-         
-              <Route index element={<FirstPage />} />
-              <Route path="home" element={<FirstPage />} />
-              <Route
-                path="search"
-                element={<BrowseProperties />}
-              />
-              <Route
-                path="booking"
-                element={<BookProperty />}
-              />
-              <Route
-                path="manageprofile"
-                element={<ManageProfile />}
-              />
-              <Route
-                path="viewhistory"
-                element={<ViewTokenPayments />}
-              />
-              <Route
-                path="logout"
-                element={<LogoutComp />}
-              />
-            </Route>
-            {/* <Route path="search" element={<BrowseProperties />} />
+
+            <Route index element={<FirstPage />} />
+            <Route path="home" element={<FirstPage />} />
+            <Route
+              path="search"
+              element={<BrowseProperties />}
+            />
+            <Route
+              path="booking"
+              element={<BookProperty />}
+            />
+            <Route
+              path="manageprofile"
+              element={<ManageProfile />}
+            />
+            <Route
+              path="viewhistory"
+              element={<ViewTokenPayments />}
+            />
+            <Route
+              path="logout"
+              element={<LogoutComp />}
+            />
+          </Route>
+          {/* <Route path="search" element={<BrowseProperties />} />
             <Route path="ManageProfile" element={<ManageProfile />} />
             <Route path="booking" element={<BookProperty />} />
             <Route path="viewhistory" element={<ViewTokenPayments />} />
@@ -85,7 +90,7 @@ function App() {
             <Route path="logout" element={<LogoutComp />} />
           </Route>
         </Routes>
-         
+
       </BrowserRouter>
 
     </>

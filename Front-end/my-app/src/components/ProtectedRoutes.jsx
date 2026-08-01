@@ -9,7 +9,7 @@ export default function ProtectedRoute({children,role}){
         return <Navigate to="/login"/>
     }
     //role of user
-    if(loginstate.user.role !== role)
+    if(loginstate.user.role.rid !== role)
         return <Navigate to="/unauthorized"/>
 
     return children;
