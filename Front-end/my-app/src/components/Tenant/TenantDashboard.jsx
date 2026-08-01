@@ -30,7 +30,7 @@ export default function TenantDashboard(){
 
           {/* Logout */}
           <NavLink
-            to="/logout"
+            to="/"
             className="btn btn-danger"
           >
             Logout

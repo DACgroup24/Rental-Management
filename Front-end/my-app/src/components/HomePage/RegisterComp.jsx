@@ -1,45 +1,18 @@
-import { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Register() {
   const navigate = useNavigate();
 
-  const states = {
-    Maharashtra: [
-      "Mumbai",
-      "Pune",
-      "Nagpur",
-      "Nashik",
-      "Thane",
-      "Aurangabad",
-      "Kolhapur",
-    ],
-    Gujarat: [
-      "Ahmedabad",
-      "Surat",
-      "Vadodara",
-      "Rajkot",
-    ],
-    Karnataka: [
-      "Bengaluru",
-      "Mysuru",
-      "Hubli",
-      "Mangalore",
-    ],
-    Delhi: [
-      "New Delhi",
-      "North Delhi",
-      "South Delhi",
-      "East Delhi",
-    ],
-  };
+  const [cities, setCities] = useState([]);
+  //console.log(user);
 
-  const [user, setUser] = useState({
+    const [user, setUser] = useState({
     name: "",
     email: "",
     phone: "",
     address: "",
-    state: "",
     city: "",
     adharno: "",
     password: "",
@@ -47,24 +20,50 @@ export default function Register() {
     role: "tenant",
   });
 
+
+  useEffect(() => {
+    fetch("http://localhost:8081/api/register")
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            setCities(data);
+        })
+        .catch((err) => console.log(err));
+}, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:8081/api/register")
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch cities");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setCities(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+
+  // useEffect(() => {
+
+  //   fetch("http://localhost:8081/api/register")
+  //     .then(res => res.json())
+  //     .then(data => setCities(data))
+  //     .catch(err => console.log(err));
+
+  // }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "state") {
-      setUser({
-        ...user,
-        state: value,
-        city: "",
-      });
-      return;
-    }
-
     setUser({
       ...user,
-      [name]: value,
+      [name]: value
     });
   };
-
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -86,47 +85,47 @@ export default function Register() {
   // };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (user.password !== user.confirmPassword) {
-    alert("Passwords do not match.");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:8081/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-        city: user.city,
-        state: user.state,
-        adharno: user.adharno,
-        password: user.password,
-        role: user.role,
-      }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-
-      alert(data.message || "Registration Successful");
-
-      navigate("/login");
-    } else {
-      const error = await response.text();
-      alert(error);
+    if (user.password !== user.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    alert("Unable to connect to server.");
-  }
-};
+
+    try {
+      const response = await fetch("http://localhost:8081/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          address: user.address,
+          cid: Number(user.city),
+          adharno: user.adharno,
+          password: user.password,
+          role: user.role === "tenant" ? 2 : 3,
+        }),
+
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        alert(data.message || "Registration Successful");
+
+        navigate("/");
+      } else {
+        const error = await response.text();
+        alert(error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Unable to connect to server.");
+    }
+  };
 
 
   return (
@@ -241,69 +240,34 @@ export default function Register() {
                     onChange={handleChange}
                     required
                   />
+                  {/* City */}
+                  <label className="form-label">
+                    City
+                  </label>
+
+                  <select
+                    className="form-select"
+                    name="city"
+                    value={user.city}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value=""> Select City
+                    </option>
+                    {cities.map((city) => (
+                      <option
+                        key={city.cid}
+                        value={city.cid}
+                      >
+                        {city.cname}
+                      </option>
+                    ))}
+                  </select>
 
                 </div>
 
-                {/* State & City */}
 
-                <div className="row">
 
-                  <div className="col-md-6 mb-3">
-
-                    <label className="form-label">
-                      State
-                    </label>
-
-                    <select
-                   
-                      className="form-select"
-                      value={user.state}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="">
-                        Select State
-                      </option>
-
-                      {Object.keys(states).map((state) => (
-                        <option key={state}>
-                          {state}
-                        </option>
-                      ))}
-
-                    </select>
-
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-
-                    <label className="form-label">
-                      City
-                    </label>
-
-                    <select
-                      className="form-select"
-                      name="city"
-                      value={user.city}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="">
-                        Select City
-                      </option>
-
-                      {user.state &&
-                        states[user.state].map((city) => (
-                          <option key={city}>
-                            {city}
-                          </option>
-                        ))}
-
-                    </select>
-
-                  </div>
-
-                </div>
 
                 {/* Password */}
 
