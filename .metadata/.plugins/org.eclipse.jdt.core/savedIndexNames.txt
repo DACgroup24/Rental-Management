@@ -1,0 +1,2 @@
+INDEX VERSION 1.134+C:\Users\praga\OneDrive\Desktop\ProjectGitRepo\Rental-Management\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
