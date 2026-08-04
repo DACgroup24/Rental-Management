@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom"
-import FirstPage from "./FirstPage"
+import FirstPage from "../FirstPage"
 export default function TenantDashboard(){
     return(
         <>
@@ -84,7 +84,9 @@ export default function TenantDashboard(){
         </div>
 
       </div>
-      
+        
+        
+
         </>
     )
 

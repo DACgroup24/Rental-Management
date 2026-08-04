@@ -22,9 +22,6 @@ const BookProperty = () => {
     console.log(booking);
   };
 
-  if(name==="duration" && value<0){
-    return ;
-  }
   return (
     <div>
       <h2>Book Property</h2>
@@ -87,7 +84,6 @@ const BookProperty = () => {
                 <input
                   type="number"
                   name="duration"
-                  min="0"
                   value={booking.duration}
                   onChange={handleChange}
                 />
